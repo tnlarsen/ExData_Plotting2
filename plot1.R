@@ -10,7 +10,7 @@ dev <- png(filename = "plot1.png", width = 480, height = 480, units = "px")
 plot(x = c(1999, 2002, 2005, 2008), 
      year.sums, 
      xlab = "Year", 
-     ylab=expression('PM'[2.5]),
+     ylab = expression('PM'[2.5]~'in tons'),
      xlim = c(1998,2008),
      main = expression('Yearly total PM'[2.5]), 
      pch = 16)

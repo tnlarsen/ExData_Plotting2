@@ -14,16 +14,17 @@ coal.combustion.sources = coal.combustion.sources[grepl("coal", coal.combustion.
 
 NEI.coalcomb = NEI[NEI$SCC %in% coal.combustion.sources$SCC, ]
 
-#dev <- png(filename = "plot4.png", width = 480, height = 480, units = "px")
+dev <- png(filename = "plot4.png", width = 480, height = 480, units = "px")
 
+year.sum <- with(NEI.coalcomb, tapply(Emissions, year, sum))
+years <- unique(NEI.coalcomb$year)
+df <- data.frame(year = years, sums = year.sum)
 
-g <- ggplot(NEI.coalcomb, aes(year, Emissions)) 
+g <- ggplot(df, aes(year, sums)) 
 g <- g + geom_point(alpha = 1/2)
-g <- g + facet_wrap(facets = ~ type, scales = "free_y", nrow=1)
-g <- g + geom_smooth(method="lm")
 g <- g + labs(title = "Emissions from coal combustion")
-g <- g + labs(y = expression('Yearly PM'[2.5]~'in tons'))
+g <- g + labs(y = expression('Total yearly PM'[2.5]~'in tons'))
 
 print(g)
 
-#dev.off()
+dev.off()

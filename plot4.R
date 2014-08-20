@@ -2,7 +2,6 @@
 
 # Loading of data is in main.R
 source("./main.R")
-
 library(ggplot2)
 
 
@@ -16,12 +15,10 @@ NEI.coalcomb = NEI[NEI$SCC %in% coal.combustion.sources$SCC, ]
 
 dev <- png(filename = "plot4.png", width = 480, height = 480, units = "px")
 
-year.sum <- with(NEI.coalcomb, tapply(Emissions, year, sum))
-years <- unique(NEI.coalcomb$year)
-df <- data.frame(year = years, sums = year.sum)
+NEI.coalcomb.aggregated <- aggregate(Emissions~year, data=NEI.coalcomb, sum)
 
-g <- ggplot(df, aes(year, sums)) 
-g <- g + geom_point(alpha = 1/2)
+g <- ggplot(NEI.coalcomb.aggregated, aes(year, Emissions)) 
+g <- g + geom_point()
 g <- g + labs(title = "Emissions from coal combustion")
 g <- g + labs(y = expression('Total yearly PM'[2.5]~'in tons'))
 

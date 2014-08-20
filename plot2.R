@@ -3,7 +3,7 @@
 # Loading of data is in main.R
 source("./main.R")
 
-NEI.baltimore <- NEI[NEI$fips==24510, ]
+NEI.baltimore <- NEI[NEI$fips == "24510", ]
 year.sums <- with(NEI.baltimore, tapply(Emissions, year, sum))
 
 dev <- png(filename = "plot2.png", width = 480, height = 480, units = "px")

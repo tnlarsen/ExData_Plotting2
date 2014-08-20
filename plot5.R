@@ -4,7 +4,7 @@
 source("./main.R")
 library(ggplot2)
 
-NEI.baltimore <- NEI[NEI$fips==24510, ]
+NEI.baltimore <- NEI[NEI$fips == "24510", ]
 
 # According to page 198 of the codebook at 
 # http://www.epa.gov/ttn/chief/net/2011nei/2011_nei_tsdv1_draft2_june2014.pdf

@@ -4,7 +4,7 @@
 source("./main.R")
 library(ggplot2)
 
-NEI.baltimore <- NEI[NEI$fips==24510, ]
+NEI.baltimore <- NEI[NEI$fips == "24510", ]
 
 NEI.baltimore.aggregated <- aggregate(Emissions~year + type, data=NEI.baltimore, sum)
 

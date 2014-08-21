@@ -4,7 +4,10 @@
 source("./main.R")
 library(ggplot2)
 
-NEI.bc.la <- NEI[NEI$fips %in% c("24510", "06037"), ]
+ba.fips = "24510"
+la.fips = "06037"
+
+NEI.bc.la <- NEI[NEI$fips %in% c(ba.fips, la.fips), ]
 
 # See explanation for subsetting in plot5.R
 motor.vehicle.sources = SCC[grepl("^Mobile - On-Road", SCC$EI.Sector, ignore.case=TRUE), ]
@@ -15,16 +18,16 @@ NEI.bc.la.mv.aggregated <- aggregate(Emissions~year + fips, data=NEI.bc.la.mv, s
 
 
 #Scale the emissions - seting the first year to index 100
-NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips =="06037",]$Emissions <- 
-  NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips =="06037",]$Emissions/NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips =="06037",]$Emissions[1] * 100
+NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips ==la.fips,]$Emissions <- 
+  NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips ==la.fips,]$Emissions/NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips ==la.fips,]$Emissions[1] * 100
 
-NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips =="24510",]$Emissions <- 
-  NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips =="24510",]$Emissions/NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips =="24510",]$Emissions[1] * 100
+NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips ==ba.fips,]$Emissions <- 
+  NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips ==ba.fips,]$Emissions/NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips ==ba.fips,]$Emissions[1] * 100
 
 
 #Put in some human readable names
-NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips == "06037",]$fips <- "Los Angeles Country"
-NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips == "24510",]$fips <- "Baltimore City"
+NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips == la.fips,]$fips <- "Los Angeles Country"
+NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips == ba.fips,]$fips <- "Baltimore City"
 
 #dev <- png(filename = "plot6.png", width = 480, height = 480, units = "px")
 

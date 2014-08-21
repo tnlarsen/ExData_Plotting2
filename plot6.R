@@ -13,6 +13,15 @@ NEI.bc.la.mv = NEI.bc.la[NEI.bc.la$SCC %in% motor.vehicle.sources$SCC, ]
 
 NEI.bc.la.mv.aggregated <- aggregate(Emissions~year + fips, data=NEI.bc.la.mv, sum)
 
+
+#Scale the emissions - seting the first year to index 100
+NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips =="06037",]$Emissions <- 
+  NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips =="06037",]$Emissions/NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips =="06037",]$Emissions[1] * 100
+
+NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips =="24510",]$Emissions <- 
+  NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips =="24510",]$Emissions/NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips =="24510",]$Emissions[1] * 100
+
+
 #Put in some human readable names
 NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips == "06037",]$fips <- "Los Angeles Country"
 NEI.bc.la.mv.aggregated[NEI.bc.la.mv.aggregated$fips == "24510",]$fips <- "Baltimore City"
@@ -26,6 +35,7 @@ g <- g + labs(title = expression(atop("Emissions from motor vehicles")))
 g <- g + labs(y = expression('Total yearly PM'[2.5]~'in tons'))
 
 print(g)
+
 
 
 #dev.off()

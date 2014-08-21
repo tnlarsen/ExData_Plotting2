@@ -1,9 +1,12 @@
-# Create plot4
+# Read the data if the resulting variables does not exist - so we only read them once
+# if multiple plots are done in one session 
+# I assume that the data files are downloaded and unzipped in a folder called "data"
+if(!exists("NEI") | !exists("SCC")) {
+    NEI <- readRDS("./data/summarySCC_PM25.rds")
+    SCC <- readRDS("./data/Source_Classification_Code.rds")
+}
 
-# Loading of data is in main.R
-source("./main.R")
 library(ggplot2)
-
 
 # Based on inspection of the SCC codes it _seems_ that SCC.Level.One contains 
 # the emitting activity and that SCC.Level.Three contains the material involved
@@ -19,8 +22,8 @@ NEI.coalcomb.aggregated <- aggregate(Emissions~year, data=NEI.coalcomb, sum)
 
 g <- ggplot(NEI.coalcomb.aggregated, aes(year, Emissions)) 
 g <- g + geom_point()
-g <- g + labs(title = "Emissions from coal combustion")
-g <- g + labs(y = expression('Total yearly PM'[2.5]~'in tons'))
+g <- g + labs(title = "Emissions from coal combustion across USA")
+g <- g + labs(y = expression('Yearly PM'[2.5]~'in tons'))
 
 print(g)
 

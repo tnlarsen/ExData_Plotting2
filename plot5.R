@@ -1,7 +1,11 @@
-# Create plot5
+# Read the data if the resulting variables does not exist - so we only read them once
+# if multiple plots are done in one session 
+# I assume that the data files are downloaded and unzipped in a folder called "data"
+if(!exists("NEI") | !exists("SCC")) {
+    NEI <- readRDS("./data/summarySCC_PM25.rds")
+    SCC <- readRDS("./data/Source_Classification_Code.rds")
+}
 
-# Loading of data is in main.R
-source("./main.R")
 library(ggplot2)
 
 NEI.baltimore <- NEI[NEI$fips == "24510", ]
@@ -26,7 +30,7 @@ NEI.baltimore.mv.aggregated <- aggregate(Emissions~year, data=NEI.baltimore.mv, 
 g <- ggplot(NEI.baltimore.mv.aggregated, aes(year, Emissions)) 
 g <- g + geom_point()
 g <- g + labs(title = expression(atop("Emissions from motor vehicles", scriptstyle('Baltimore City, Maryland'))))
-g <- g + labs(y = expression('Total yearly PM'[2.5]~'in tons'))
+g <- g + labs(y = expression('Yearly PM'[2.5]~'in tons'))
 
 print(g)
 
